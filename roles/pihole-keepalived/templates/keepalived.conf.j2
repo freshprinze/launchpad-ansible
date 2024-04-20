@@ -34,7 +34,7 @@ vrrp_instance PIHOLE-IPv4 {
     {{ hostvars[host].ansible_host }}
     {% endfor %}}
     
-    virtual_router_id 1
+    virtual_router_id {{ keepalived_vrrp_router_id }}
     priority {{ keepalived_vrrp_priority }}
     advert_int 1
     

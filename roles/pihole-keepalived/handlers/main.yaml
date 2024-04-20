@@ -1,4 +1,5 @@
 - name: Reload sysctl config
+  become: true
   ansible.builtin.command: sysctl -p
 
 - name: Restart keepalived service
