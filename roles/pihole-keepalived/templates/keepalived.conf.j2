@@ -26,27 +26,29 @@ vrrp_sync_group PIHOLE {
 }
 
 vrrp_instance PIHOLE-IPv4 {
-    state {{ pihole_vrrp_role }}
+    state {{ keepalived_vrrp_role }}
 	interface {{ ansible_default_ipv4.interface }}
     
-	unicast_src_ip 192.168.100.21
+	unicast_src_ip {{ ansible_default_ipv4.address }}
 	unicast_peer {
-		192.168.100.22
+        {% for item in keepalived_unicast_peers %}
+        {{ item }}
+        {% endfor %}
 	}	
 
 	virtual_router_id 1
-    priority {{ priority }}
+    priority {{ keepalived_vrrp_priority }}
     advert_int 1
     
 	preempt_delay 900
 
   	authentication {
     	auth_type PASS
-    	auth_pass {{ vrrp_password }}
+    	auth_pass {{ keepalived_vrrp_password }}
   	}
 
     virtual_ipaddress {
-        {{ pihole_vip_ipv4 }}
+        {{ keepalived_vrrp_vip_ipv4 }}
     }
 }
 

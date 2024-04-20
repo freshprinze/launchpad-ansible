@@ -52,7 +52,11 @@
   roles:
     - role: keepalived
       vars:
-        keepalived_: '/home/{{ server_admin_user }}/pihole'
+        keepalived_vrrp_role: MASTER
+        keepalived_vrrp_priority: 100
+        keepalived_vrrp_password: "{{ pihole_keepalived_password }}"
+        keepalived_vrrp_vip_ipv4: "{{ pihole_keepalived_vip }}"
+        keepalived_unicast_peers: pihole_slaves
   tags:
     - ha
     - master
@@ -62,7 +66,11 @@
   roles:
     - role: keepalived
       vars:
-        keepalived_: '/home/{{ server_admin_user }}/pihole'
+        keepalived_vrrp_role: BACKUP
+        keepalived_vrrp_priority: 1
+        keepalived_vrrp_password: "{{ pihole_keepalived_password }}"
+        keepalived_vrrp_vip_ipv4: "{{ pihole_keepalived_vip }}"
+        keepalived_unicast_peers: pihole_master
   tags:
     - ha
     - slaves
