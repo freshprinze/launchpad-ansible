@@ -1,0 +1,45 @@
+- name: Bootstrap PiHole
+  hosts: pihole_nodes
+  become: true
+  roles:
+    - role: manage_keepalived
+      vars:
+        manage_keepalived_state: stopped
+    - role: bootstrap-pi
+    - role: apt-updates
+    - role: manage_keepalived
+      vars:
+        manage_keepalived_state: started
+
+- name: Copy Mandatory Scripts
+  hosts: pihole_nodes
+  roles:
+    - role: copy-scripts
+      vars:
+        scripts:
+          - '../scripts/power/shutdown.sh'
+          - '../scripts/power/reboot.sh'
+        remote_directory: '/home/serveradmin/scripts/'
+  tags: scripts
+
+- name: Setup docker
+  hosts: pihole_nodes
+  become: true
+  roles:
+    - role: manage_keepalived
+      vars:
+        manage_keepalived_state: stopped
+    - role: setup-docker
+    - role: manage_keepalived
+      vars:
+        manage_keepalived_state: started
+  tags: docker
+
+- name: Copy module folders
+  hosts: pihole_nodes
+  roles:
+    - role: copy-module-folders
+  vars:
+    modules:
+      pihole: '../docker/pihole'
+  tags: pihole

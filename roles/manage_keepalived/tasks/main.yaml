@@ -1,0 +1,8 @@
+- name: Manage keepalived service
+  ansible.builtin.service:
+    name: keepalived
+    state: "{{ manage_keepalived_state }}"
+  register: result
+  failed_when:
+    - result.failed == true
+    - '"Could not find the requested service" not in result.msg'

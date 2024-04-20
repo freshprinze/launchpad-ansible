@@ -1,0 +1,5 @@
+{% for command in allowed_commands if allowed_commands is defined and allowed_commands|length > 0 %}
+{{ username }} ALL=({{ as_user }}) NOPASSWD: {{ command }}
+{% else %}
+{{ username }} ALL=(ALL) NOPASSWD:ALL
+{% endfor %}

@@ -1,0 +1,28 @@
+- name: Set timezone
+  ansible.builtin.lineinfile:
+    path: /etc/timezone
+    regexp: '^'
+    line: '{{ timezone }}'
+
+- name: Set localtime
+  ansible.builtin.file:
+    src: /usr/share/zoneinfo/{{ timezone }}
+    dest: /etc/localtime
+    state: link
+
+- name: Set hostname
+  ansible.builtin.lineinfile:
+    path: /etc/hostname
+    regexp: '^'
+    line: '{{ inventory_hostname }}'
+  notify: Reboot after hostname change
+
+- name: Set hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127.0.1.1'
+    line: 127.0.1.1 {{ inventory_hostname }}
+  notify: Reboot after hostname change
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

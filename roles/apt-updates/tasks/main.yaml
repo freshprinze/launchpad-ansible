@@ -1,0 +1,21 @@
+- name: Print variables
+  ansible.builtin.debug:
+    msg: "Distribution {{ ansible_distribution }} | OS Family {{ ansible_os_family }}"
+
+- name: Update apt packages
+  become: true
+  ansible.builtin.apt:
+    force_apt_get: true
+    autoclean: true
+    autoremove: true
+    update_cache: true
+    upgrade: dist
+
+- name: Check if reboot is needed
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+
+- name: Reboot
+  ansible.builtin.reboot:
+  when: reboot_required.stat.exists

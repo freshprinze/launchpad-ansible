@@ -1,0 +1,48 @@
+- name: Bootstrap Pi
+  hosts: iris
+  become: true
+  roles:
+    - role: bootstrap-pi
+    - role: apt-updates
+  tags: bootstrap
+
+- name: Setup docker
+  hosts: iris
+  become: true
+  roles:
+    - role: setup-docker
+  tags: bootstrap
+
+- name: Configure traefik
+  hosts: iris
+  roles:
+    - role: copy-module-folders
+  vars:
+    modules:
+      traefik: '../docker/traefik'
+  tags: traefik
+
+- name: Update Traefik Config
+  hosts: iris
+  roles:
+    - role: update-docker-compose-service
+      vars:
+        compose_path: '/home/{{ server_admin_user }}/traefik'
+        files:
+          - src: ../docker/traefik/data/config.yaml
+            dest: '/home/{{ server_admin_user }}/traefik/data/'
+  tags: traefik-update
+
+- name: Copy module folders
+  hosts: iris
+  roles:
+    - role: copy-module-folders
+      vars:
+        modules:
+          portainer: '../docker/portainer'
+          dashy: '../docker/dashy'
+          'uptime-kuma': '../docker/uptime-kuma'
+          webnut: '../docker/webnut'
+          upsnap: '../docker/upsnap'
+          'orbital-sync': '../docker/orbital-sync'
+  tags: mods

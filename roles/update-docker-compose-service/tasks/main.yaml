@@ -1,0 +1,21 @@
+# - name: Get Container Information
+#   community.docker.docker_container_info:
+#     name: '{{ container_name }}'
+#   register: container_info
+
+- name: Stop Service
+  community.docker.docker_compose_v2:
+    project_src: '{{ compose_path }}'
+    state: stopped
+
+- name: Copy Files
+  ansible.builtin.copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop: '{{ files }}'
+  when: files is defined
+
+- name: Start Service
+  community.docker.docker_compose_v2:
+    project_src: '{{ compose_path }}'
+    state: present

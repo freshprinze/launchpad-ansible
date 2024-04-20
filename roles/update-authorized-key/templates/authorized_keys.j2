@@ -1,0 +1,4 @@
+{% for filename in keys %}
+{{ lookup('ansible.builtin.file', lookup('env','HOME') ~ '/.ssh/' ~ filename ~ '.pub') }}
+
+{% endfor %}

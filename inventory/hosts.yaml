@@ -1,0 +1,65 @@
+---
+### --- node ip's are defined ---
+all:
+  hosts:
+    pathos:
+      ansible_host: 172.16.20.6
+    logos:
+      ansible_host: 172.16.20.11
+    atlas:
+      ansible_host: 172.16.20.2
+    capella:
+      ansible_host: 172.16.20.5
+    iris:
+      ansible_host: 172.16.20.8
+    rezerva:
+      ansible_host: 172.16.20.7
+    capella-vm-100:
+      ansible_host: 172.16.20.40
+    capella-vm-101:
+      ansible_host: 172.16.20.41
+    auriga-vm-102:
+      ansible_host: 172.16.20.42
+
+### ----------- pihole nodes ------------
+pihole_nodes:
+  hosts:
+    pathos:
+    logos:
+
+pihole_primary:
+  hosts:
+    pathos:
+
+pihole_slaves:
+  hosts:
+    logos:
+
+### ----------- proxmox nodes -------------
+proxmox_nodes:
+  hosts:
+    atlas:
+    capella:
+
+### ----------- proxmox vms ---------------
+proxmox_vms:
+  hosts:
+    capella-vm-100:
+    capella-vm-101:
+
+### ----------- portainer nodes -------------
+portainer_nodes:
+  hosts:
+    iris:
+    capella-vm-100:
+    auriga-vm-102:
+
+portainer_slaves:
+  hosts:
+    capella-vm-100:
+    auriga-vm-102:
+
+### ------------ storage nodes ----------------
+storage_nodes:
+  hosts:
+    rezerva:

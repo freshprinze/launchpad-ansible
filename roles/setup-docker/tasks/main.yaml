@@ -1,0 +1,13 @@
+---
+- name: Include OS specific variables
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - 'os_{{ ansible_distribution }}.yaml'
+        - 'os_{{ ansible_os_family }}.yaml'
+      paths:
+        - 'vars'
+
+- name: Install docker
+  ansible.builtin.include_tasks: install_docker.yaml

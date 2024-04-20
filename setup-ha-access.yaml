@@ -1,0 +1,23 @@
+- name: Create Home Assistant Access User
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: add-sudo-user
+  vars:
+    username: '{{ ha_access_user }}'
+    user_shell: '/bin/bash'
+    as_user: '{{ server_admin_user }}'
+    allowed_commands:
+      - '/home/serveradmin/scripts/reboot.sh'
+      - '/home/serveradmin/scripts/shutdown.sh'
+  tags: haaccess
+
+- name: Merge public keys
+  hosts: all
+  roles:
+    - role: update-authorized-key
+  vars:
+    username: '{{ ha_access_user }}'
+    keys:
+      - id_ed25519_homelab_ha-access
+  tags: mergekeys

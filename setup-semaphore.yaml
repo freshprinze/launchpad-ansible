@@ -1,0 +1,22 @@
+- name: Bootstrap
+  hosts: capella-vm-101-semaphore
+  become: true
+  roles:
+    - role: apt-updates
+  tags: bootstrap
+
+- name: Setup docker
+  hosts: capella-vm-101-semaphore
+  become: true
+  roles:
+    - role: setup-docker
+  tags: bootstrap
+
+- name: Copy module folders
+  hosts: capella-vm-101-semaphore
+  roles:
+    - role: copy-module-folders
+  vars:
+    modules:
+      semaphore: '../docker/semaphore'
+  tags: mods

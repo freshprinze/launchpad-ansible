@@ -1,0 +1,23 @@
+# - name: Render authorized keys
+#   set_fact:
+#     rendered_template: |
+#       {% for filename in keys %}
+#       {{ lookup('ansible.builtin.file', lookup('env','HOME') ~ '/.ssh/' ~ filename ~ '.pub') }}
+#       {% endfor %}
+
+# - name: Test
+#   debug:
+#     msg: '{{ rendered_template }}'
+
+# - name: Render Template
+#   debug:
+#     var: rendered_template
+#   vars:
+#     rendered_template: "{{ lookup('template', './templates/authorized_keys.j2') }}"
+
+- name: Update authorized_keys file
+  ansible.posix.authorized_key:
+    user: '{{ username }}'
+    key: "{{ lookup('template', './templates/authorized_keys.j2') }}"
+    state: present
+    exclusive: true

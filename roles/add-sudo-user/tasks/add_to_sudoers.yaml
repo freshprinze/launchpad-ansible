@@ -1,0 +1,8 @@
+- name: Add user to sudoers
+  become: true
+  ansible.builtin.template:
+    src: ./templates/grant_sudo_access.j2
+    dest: "/etc/sudoers.d/{{ username }}"
+    owner: root
+    group: root
+    mode: "0600"
