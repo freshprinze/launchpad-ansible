@@ -1,6 +1,6 @@
 - name: Print all available facts
   ansible.builtin.debug:
-    var: ansible_facts
+    msg: "{{ lookup('template', 'keepalived.conf.j2') }}"
 # - name: Enable nonlocal IP binding
 #   ansible.builtin.blockinfile:
 #     path: /etc/sysctl.conf

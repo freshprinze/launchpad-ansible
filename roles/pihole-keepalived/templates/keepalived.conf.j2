@@ -17,7 +17,6 @@ vrrp_script check_pihole {
 vrrp_sync_group PIHOLE {
     group {
         PIHOLE-IPv4
-        {# PIHOLE-IPv6 #}
     }
 
     track_script {
@@ -27,25 +26,24 @@ vrrp_sync_group PIHOLE {
 
 vrrp_instance PIHOLE-IPv4 {
     state {{ keepalived_vrrp_role }}
-	interface {{ ansible_default_ipv4.interface }}
+    interface {{ ansible_default_ipv4.interface }}
     
-	unicast_src_ip {{ ansible_default_ipv4.address }}
-	unicast_peer {
-        {% for item in keepalived_unicast_peers %}
-        {{ item }}
-        {% endfor %}
-	}	
-
-	virtual_router_id 1
+    unicast_src_ip {{ ansible_default_ipv4.address }}
+    unicast_peer {
+    {% for host in groups[keepalived_unicast_peers] %}
+    {{ hostvars[host].ansible_host }}
+    {% endfor %}}
+    
+    virtual_router_id 1
     priority {{ keepalived_vrrp_priority }}
     advert_int 1
     
-	preempt_delay 900
-
-  	authentication {
+    preempt_delay {{ keepalived_vrrp_preempt_delay }}
+    
+    authentication {
     	auth_type PASS
     	auth_pass {{ keepalived_vrrp_password }}
-  	}
+    }
 
     virtual_ipaddress {
         {{ keepalived_vrrp_vip_ipv4 }}
