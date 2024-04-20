@@ -41,5 +41,5 @@
     - role: copy-module-folders
   vars:
     modules:
-      pihole: '../docker/pihole'
+      pihole: '../launchpad-docker/pihole'
   tags: pihole

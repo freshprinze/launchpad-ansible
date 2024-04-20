@@ -16,7 +16,7 @@
     - role: copy-module-folders
       vars:
         modules:
-          portainer: '../docker/portainer'
+          portainer: '../launchpad-docker/portainer'
     - role: update-docker-compose-service
       vars:
         compose_path: '/home/{{ server_admin_user }}/portainer'
@@ -28,23 +28,23 @@
     - role: copy-module-folders
       vars:
         modules:
-          'portainer-agent': '../docker/portainer-agent'
+          'portainer-agent': '../launchpad-docker/portainer-agent'
     - role: update-docker-compose-service
       vars:
         compose_path: '/home/{{ server_admin_user }}/portainer-agent'
   tags: slaves
 
-- name: Copy Modules to Portainer Slave-1
-  hosts: capella-vm-100
-  roles:
-    - role: copy-module-folders
-      vars:
-        modules:
-          netbox: '../docker/netbox'
-          netboot: '../docker/netboot'
-          paperless: '../docker/paperless'
-          syncthing: '../docker/syncthing'
-  tags: slave-1
+# - name: Copy Modules to Portainer Slave-1
+#   hosts: capella-vm-100
+#   roles:
+#     - role: copy-module-folders
+#       vars:
+#         modules:
+#           netbox: '../docker/netbox'
+#           netboot: '../docker/netboot'
+#           paperless: '../docker/paperless'
+#           syncthing: '../docker/syncthing'
+#   tags: slave-1
 # - name: Copy Modules to Portainer Slave-2
 #   hosts: capella-vm-100
 #   roles:
