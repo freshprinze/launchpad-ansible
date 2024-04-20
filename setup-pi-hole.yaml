@@ -2,12 +2,12 @@
   hosts: pihole_nodes
   become: true
   roles:
-    - role: manage_keepalived
+    - role: manage-keepalived
       vars:
         manage_keepalived_state: stopped
     - role: bootstrap-pi
     - role: apt-updates
-    - role: manage_keepalived
+    - role: manage-keepalived
       vars:
         manage_keepalived_state: started
 
@@ -17,8 +17,8 @@
     - role: copy-scripts
       vars:
         scripts:
-          - '../scripts/power/shutdown.sh'
-          - '../scripts/power/reboot.sh'
+          - '../launchpad-scripts/power/shutdown.sh'
+          - '../launchpad-scripts/power/reboot.sh'
         remote_directory: '/home/serveradmin/scripts/'
   tags: scripts
 
@@ -26,11 +26,11 @@
   hosts: pihole_nodes
   become: true
   roles:
-    - role: manage_keepalived
+    - role: manage-keepalived
       vars:
         manage_keepalived_state: stopped
     - role: setup-docker
-    - role: manage_keepalived
+    - role: manage-keepalived
       vars:
         manage_keepalived_state: started
   tags: docker
@@ -39,7 +39,30 @@
   hosts: pihole_nodes
   roles:
     - role: copy-module-folders
-  vars:
-    modules:
-      pihole: '../launchpad-docker/pihole'
+      vars:
+        modules:
+          pihole: '../launchpad-docker/pihole'
+    - role: update-docker-compose-service
+      vars:
+        compose_path: '/home/{{ server_admin_user }}/pihole'
   tags: pihole
+
+- name: Setup HA Master
+  hosts: pihole_master
+  roles:
+    - role: keepalived
+      vars:
+        keepalived_: '/home/{{ server_admin_user }}/pihole'
+  tags:
+    - ha
+    - master
+
+- name: Setup HA Slaves
+  hosts: pihole_slaves
+  roles:
+    - role: keepalived
+      vars:
+        keepalived_: '/home/{{ server_admin_user }}/pihole'
+  tags:
+    - ha
+    - slaves

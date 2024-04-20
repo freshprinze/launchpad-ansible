@@ -27,7 +27,7 @@ pihole_nodes:
     pathos:
     logos:
 
-pihole_primary:
+pihole_master:
   hosts:
     pathos:
 
