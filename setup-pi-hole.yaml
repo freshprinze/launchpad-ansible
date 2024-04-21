@@ -66,6 +66,7 @@
 
 - name: Setup HA Slaves
   hosts: pihole_slaves
+  become: true
   roles:
     - role: pihole-keepalived
       vars:
