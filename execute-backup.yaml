@@ -1,0 +1,7 @@
+- name: Create Home Assistant Access User
+  hosts: all
+  roles:
+    - role: backup-device
+      vars:
+        username: '{{ ha_access_user }}'
+  tags: backup

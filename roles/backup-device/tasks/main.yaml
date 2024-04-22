@@ -1,0 +1,19 @@
+- name: Ensure Backup Script Exist
+  ansible.builtin.file:
+    path: "{{  }}"
+    state: file
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0775
+
+- name: Ensure Backup Folder Exists
+  ansible.builtin.file:
+    path: "{{  }}"
+    state: directory
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0775
+
+- name: Start Backup
+  ansible.builtin.script:
+    cmd: "{{ script_path }}"

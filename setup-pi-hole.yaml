@@ -22,6 +22,18 @@
         remote_directory: '/home/serveradmin/scripts/'
   tags: scripts
 
+- name: Prepare to Back-Up
+  hosts: pihole_nodes
+  roles:
+    - role: setup-backup-pi
+      become: true
+    - role: copy-scripts
+      vars:
+        scripts:
+          - '../launchpad-scripts/general/backup-pi.sh'
+        remote_directory: '/home/serveradmin/scripts/'
+  tags: backup
+
 - name: Setup docker
   hosts: pihole_nodes
   become: true
