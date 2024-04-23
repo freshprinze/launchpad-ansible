@@ -1,4 +1,5 @@
 - name: Create Local Mount
+  become: true
   ansible.builtin.file:
     path: "{{ local_backup_mount_point }}"
     state: directory
@@ -20,3 +21,11 @@
     opts: rw,sync,hard
     boot: true
     state: present
+
+- name: Mount volume
+  ansible.posix.mount:
+    src: "{{ remote_backup_path }}"
+    path: "{{ local_backup_mount_point }}"
+    fstype: nfs
+    opts: rw,sync,hard
+    state: mounted

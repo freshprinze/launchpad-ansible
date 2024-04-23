@@ -28,8 +28,8 @@
     - role: setup-backup-pi
       become: true
       vars:
-        remote_backup_path: "{{ remote_backup_path }}"
-        local_backup_mount_point: "{{ local_backup_mount_point }}"
+        remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
+        local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
     - role: copy-scripts
       vars:
         scripts:
