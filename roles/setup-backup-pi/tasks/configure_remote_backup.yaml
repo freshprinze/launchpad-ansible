@@ -6,8 +6,8 @@
 
 - name: Update fstab
   ansible.posix.mount:
-    src: "{{ remote_backup_drive }}"
-    path: "{{ local_backup_mount }}"
+    src: "{{ remote_backup_path }}"
+    path: "{{ local_backup_mount_point }}"
     fstype: nfs
     opts: rw,sync,hard
     boot: true

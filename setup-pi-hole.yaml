@@ -22,11 +22,14 @@
         remote_directory: '/home/serveradmin/scripts/'
   tags: scripts
 
-- name: Prepare to Back-Up
+- name: Prepare BackUp Config
   hosts: pihole_nodes
   roles:
     - role: setup-backup-pi
       become: true
+      vars:
+        remote_backup_path: "{{ remote_backup_path }}"
+        local_backup_mount_point: "{{ local_backup_mount_point }}"
     - role: copy-scripts
       vars:
         scripts:
