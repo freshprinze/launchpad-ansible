@@ -1,0 +1,14 @@
+- name: Install Required Packages
+  ansible.builtin.package:
+    name:
+      - nfs-common
+    state: present
+
+- name: Update fstab
+  ansible.posix.mount:
+    src: "{{ remote_backup_drive }}"
+    path: "{{ local_backup_mount }}"
+    fstype: nfs
+    opts: rw,sync,hard
+    boot: true
+    state: present
