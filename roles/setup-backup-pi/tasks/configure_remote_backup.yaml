@@ -1,3 +1,11 @@
+- name: Create Local Mount
+  ansible.builtin.file:
+    path: "{{ local_backup_mount_point }}"
+    state: directory
+    group: "{{ server_admin_user }}"
+    owner: "{{ server_admin_user }}"
+    mode: "700"
+
 - name: Install Required Packages
   ansible.builtin.package:
     name:
