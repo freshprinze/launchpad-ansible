@@ -17,7 +17,7 @@
 2. Setup DevOps Users
 
    ```sh
-    ansible-playbook setup-devops-users.yaml -l <nodes> --user=<admin-user>
+    ansible-playbook setup-devops-users.yaml -l <nodes> --user=<admin-user> -K
    ```
 
 ## Setup PiHole nodes

@@ -3,6 +3,8 @@
   gather_facts: false
   roles:
     - role: add-sudo-user
+      become: true
+      become_user: root
       vars:
         username: '{{ ha_access_user_name }}'
         user_shell: '/bin/bash'
@@ -26,6 +28,8 @@
   gather_facts: false
   roles:
     - role: add-sudo-user
+      become: true
+      become_user: root
       vars:
         username: '{{ devops_access_user_name }}'
         user_shell: '/bin/bash'
