@@ -36,5 +36,5 @@
       vars:
         username: '{{ devops_access_user_name }}'
         keys:
-          - id_ed25519_homelab-devops-access
+          - id_ed25519_homelab_devops-access
   tags: devopsaccess
