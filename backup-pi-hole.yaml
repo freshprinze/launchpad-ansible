@@ -1,4 +1,4 @@
-- name: Create Home Assistant Access User
+- name: Create Backup
   hosts: logos
   roles:
     - role: backup-device
