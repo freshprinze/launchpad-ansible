@@ -15,4 +15,4 @@
 #     mode: 0775
 
 - name: Start Backup
-  ansible.builtin.shell: "/home/serveradmin/scripts/backup-pi.sh"
+  ansible.builtin.command: "bash -s < /home/serveradmin/scripts/backup-pi.sh"
