@@ -2,8 +2,23 @@
 
 ## Table of Contents
 
-1. [Setup PiHole Nodes](#setup-pihole-nodes)
-2. [Setup Pi Iris](#setup-pi-iris)
+1. [Setup Users](#setup-users)
+2. [Setup PiHole Nodes](#setup-pihole-nodes)
+3. [Setup Pi Iris](#setup-pi-iris)
+
+## Setup Users
+
+1. Setup Admin User
+
+   ```sh
+    ansible-playbook setup-admin-user.yaml -l <nodes> --user=root -k
+   ```
+
+2. Setup DevOps Users
+
+   ```sh
+    ansible-playbook setup-devops-users.yaml -l <nodes> --user=<admin-user>
+   ```
 
 ## Setup PiHole nodes
 
@@ -15,16 +30,11 @@ Pihole nodes will be setup with the following features.
 
 > if needed specify become user password using -K
 
-1. Setup `sudo` access
+
+1. Setup pihole
 
    ```sh
-     ansible-playbook setup-sudo.yaml -l pihole_nodes --user=root -k
-   ```
-
-2. Setup pihole
-
-   ```sh
-     ansible-playbook setup-pi-hole.yaml --user=serveradmin
+    ansible-playbook setup-pi-hole.yaml --user=<admin-user>
    ```
 
 ## Setup Pi Iris

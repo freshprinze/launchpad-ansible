@@ -1,15 +1,15 @@
-- name: Bootstrap PiHole
+- name: Bootstrap Device
   hosts: pihole_nodes
   become: true
   roles:
     - role: manage-keepalived
       vars:
-        manage_keepalived_state: stopped
+        keepalived_state: stopped
     - role: bootstrap-pi
     - role: apt-updates
     - role: manage-keepalived
       vars:
-        manage_keepalived_state: started
+        keepalived_state: started
 
 - name: Copy Mandatory Scripts
   hosts: pihole_nodes

@@ -1,8 +1,5 @@
-- name: Display user details
-  ansible.builtin.include_tasks: display_user_details.yaml
-
-- name: Add user
+- name: Add User
   ansible.builtin.include_tasks: add_user.yaml
 
-- name: Add user to sudoers
+- name: Add User to sudoers
   ansible.builtin.include_tasks: add_to_sudoers.yaml

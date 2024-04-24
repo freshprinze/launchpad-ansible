@@ -1,0 +1,40 @@
+- name: Create Home Assistant Access User
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: add-sudo-user
+      vars:
+        username: '{{ ha_access_user_name }}'
+        user_shell: '/bin/bash'
+        permissions:
+          become_user: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+          allowed_commands:
+            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/reboot.sh"
+            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/shutdown.sh"
+    - role: update-authorized-key
+      become: true
+      vars:
+        username: '{{ ha_access_user_name }}'
+        keys:
+          - id_ed25519_homelab_ha-access
+  tags: haaccess
+
+- name: Create DevOps User
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: add-sudo-user
+      vars:
+        username: '{{ devops_access_user_name }}'
+        user_shell: '/bin/bash'
+        permissions:
+          become_user: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+          allowed_commands:
+            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/backup.sh"
+    - role: update-authorized-key
+      become: true
+      vars:
+        username: '{{ devops_access_user_name }}'
+        keys:
+          - id_ed25519_homelab-devops-access
+  tags: devopsaccess

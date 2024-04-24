@@ -1,3 +1,0 @@
-- name: Display username being added
-  ansible.builtin.debug:
-    msg: "sudo username is: {{ username }}"

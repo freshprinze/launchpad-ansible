@@ -1,7 +1,7 @@
 - name: Manage keepalived service
   ansible.builtin.service:
     name: keepalived
-    state: "{{ manage_keepalived_state }}"
+    state: "{{ keepalived_state }}"
   register: result
   failed_when:
     - result.failed == true

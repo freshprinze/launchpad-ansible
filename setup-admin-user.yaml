@@ -1,0 +1,25 @@
+- name: Install Prerequisites
+  hosts: all
+  roles:
+    - role: ansible-prerequisites
+  tags: init
+
+- name: Create Server Admin User
+  hosts: all
+  roles:
+    - role: add-sudo-user
+      vars:
+        username: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+        password: "{{ lookup('ansible.builtin.env', 'admin_user_password') | password_hash('sha512')  }}"
+        user_shell: '/bin/bash'
+  tags: superuser
+
+- name: Merge public keys
+  hosts: all
+  roles:
+    - role: update-authorized-key
+      vars:
+        username: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+        keys:
+          - id_ed25519_homelab_asiri-devops
+  tags: mergekeys
