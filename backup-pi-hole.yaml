@@ -1,5 +1,5 @@
 - name: Create Backup
-  hosts: logos
+  hosts: all
   roles:
     - role: backup-device
       # vars:
