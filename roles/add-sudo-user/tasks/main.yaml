@@ -1,5 +1,8 @@
-- name: Add User
+- name: Add Admin User
   ansible.builtin.include_tasks: add_user.yaml
 
 - name: Add User to sudoers
   ansible.builtin.include_tasks: add_to_sudoers.yaml
+
+- name: Update User Groups
+  ansible.builtin.include_tasks: add_to_groups.yaml

@@ -9,9 +9,11 @@
   roles:
     - role: add-sudo-user
       vars:
-        username: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
-        password: "{{ lookup('ansible.builtin.env', 'admin_user_password') | password_hash('sha512')  }}"
+        username: "{{ server_admin_user_name }}"
+        password: "{{ server_admin_user_password }}"
         user_shell: '/bin/bash'
+        admin_groups:
+          - devops
   tags: superuser
 
 - name: Merge public keys

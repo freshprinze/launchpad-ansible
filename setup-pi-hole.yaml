@@ -20,21 +20,23 @@
           - '../launchpad-scripts/power/shutdown.sh'
           - '../launchpad-scripts/power/reboot.sh'
         remote_directory: '/home/serveradmin/scripts/'
+        group_name: devops
   tags: scripts
 
 - name: Prepare BackUp Config
   hosts: pihole_nodes
   roles:
-    - role: setup-backup-pi
-      become: true
-      vars:
-        remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
-        local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
     - role: copy-scripts
       vars:
         scripts:
           - '../launchpad-scripts/general/backup-pi.sh'
         remote_directory: '/home/serveradmin/scripts/'
+        group_name: devops
+    - role: setup-backup-pi
+      become: true
+      vars:
+        remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
+        local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
   tags: backup
 
 - name: Setup docker

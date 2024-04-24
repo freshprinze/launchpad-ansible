@@ -1,13 +1,9 @@
-- name: Print
-  ansible.builtin.debug:
-    msg: "admin username is: {{ server_admin_user }}"
-
 - name: Copy Folder
   loop: "{{ modules | dict2items }}"
   ansible.builtin.copy:
     src: "{{ item.value }}"
-    dest: "/home/{{ server_admin_user }}"
-    owner: "{{ server_admin_user }}"
-    group: "{{ server_admin_user }}"
+    dest: "/home/{{ server_admin_user_name }}"
+    owner: "{{ server_admin_user_name }}"
+    group: "{{ server_admin_user_name }}"
     # force: true
   # become: true

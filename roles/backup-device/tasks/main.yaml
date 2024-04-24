@@ -2,17 +2,17 @@
 #   ansible.builtin.file:
 #     path: "{{  }}"
 #     state: file
-#     owner: "{{ server_admin_user }}"
-#     group: "{{ server_admin_user }}"
+#     owner: "{{ server_admin_user_name }}"
+#     group: "{{ server_admin_user_name }}"
 #     mode: '0775'
 
 # - name: Ensure Backup Folder Exists
 #   ansible.builtin.file:
 #     path: "{{  }}"
 #     state: directory
-#     owner: "{{ server_admin_user }}"
-#     group: "{{ server_admin_user }}"
+#     owner: "{{ server_admin_user_name }}"
+#     group: "{{ server_admin_user_name }}"
 #     mode: 0775
 
 - name: Start Backup
-  ansible.builtin.command: "bash -s < /home/serveradmin/scripts/backup-pi.sh"
+  ansible.builtin.shell: "/home/serveradmin/scripts/backup-pi.sh"

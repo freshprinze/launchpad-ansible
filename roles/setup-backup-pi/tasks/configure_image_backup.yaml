@@ -2,8 +2,8 @@
   ansible.builtin.unarchive:
     src: https://files.networkprofile.org/s/ZebFWQKqra7LgJr/download/image-files.zip
     dest: /usr/local/bin
-    group: "{{ server_admin_user }}"
-    owner: "{{ server_admin_user }}"
+    group: "{{ server_admin_user_name }}"
+    owner: "{{ server_admin_user_name }}"
     mode: "700"
     remote_src: true
 

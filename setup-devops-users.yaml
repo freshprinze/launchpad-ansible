@@ -6,11 +6,13 @@
       vars:
         username: '{{ ha_access_user_name }}'
         user_shell: '/bin/bash'
+        admin_groups:
+          - devops
         permissions:
-          become_user: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+          become_user: "{{ server_admin_user_name }}"
           allowed_commands:
-            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/reboot.sh"
-            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/shutdown.sh"
+            - "/home/{{ server_admin_user_name }}/scripts/reboot.sh"
+            - "/home/{{ server_admin_user_name }}/scripts/shutdown.sh"
     - role: update-authorized-key
       become: true
       vars:
@@ -27,10 +29,12 @@
       vars:
         username: '{{ devops_access_user_name }}'
         user_shell: '/bin/bash'
+        admin_groups:
+          - devops
         permissions:
-          become_user: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+          become_user: "{{ server_admin_user_name }}"
           allowed_commands:
-            - "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/backup-pi.sh"
+            - "/home/{{ server_admin_user_name }}/scripts/backup-pi.sh"
     - role: update-authorized-key
       become: true
       vars:

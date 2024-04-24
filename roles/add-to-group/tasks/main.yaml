@@ -1,0 +1,5 @@
+- name: Add User to Group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: "{{ assigned_groups | join(',') }}"
+    append: true

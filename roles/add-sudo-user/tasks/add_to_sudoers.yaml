@@ -6,3 +6,5 @@
     owner: root
     group: root
     mode: "0600"
+  vars:
+    user_permissions: "{{ permissions | default({'allowed_commands':[]}) }}"
