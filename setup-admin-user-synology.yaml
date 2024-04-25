@@ -1,0 +1,8 @@
+- name: Install Prerequisites
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Test
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/asiri/scripts"
+      ansible.builtin.command: synology-manage-user.sh 'serveradmin' ''

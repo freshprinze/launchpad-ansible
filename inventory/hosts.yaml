@@ -20,6 +20,8 @@ all:
       ansible_host: 172.16.20.41
     auriga-vm-102:
       ansible_host: 172.16.20.42
+    nas-01-synology:
+      ansible_host: 172.16.20.3
 
 ### ----------- pihole nodes ------------
 pihole_nodes:
@@ -34,6 +36,12 @@ pihole_master:
 pihole_slaves:
   hosts:
     logos:
+
+### ----------- storage nodes --------------
+storage_nodes:
+  hosts:
+    nas-01-synology:
+    rezerva:
 
 ### ----------- proxmox nodes -------------
 proxmox_nodes:
@@ -58,8 +66,3 @@ portainer_slaves:
   hosts:
     capella-vm-100:
     auriga-vm-102:
-
-### ------------ storage nodes ----------------
-storage_nodes:
-  hosts:
-    rezerva:
