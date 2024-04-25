@@ -1,7 +1,7 @@
 - name: Add Admin User
   ansible.builtin.command: synology-manage-user.sh "{{ username }}" "{{ password }}"
 
-- name: Add to Admin Group
+- name: Add to Groups
   ansible.builtin.command: synology-manage-group.sh "{{ username }}" "{{ item }}"
   loop: "{{ assigned_groups }}"
   when: assigned_groups is defined
