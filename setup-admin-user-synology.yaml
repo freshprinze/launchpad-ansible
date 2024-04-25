@@ -1,8 +1,16 @@
-- name: Install Prerequisites
+- name: Add Sudo User
   hosts: all
-  gather_facts: true
-  tasks:
-    - name: Test
-      environment:
-        PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/asiri/scripts"
-      ansible.builtin.command: synology-manage-user.sh 'serveradmin' ''
+  gather_facts: true # required to set the ansible_env
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/{{ ansible_user }}/scripts"
+  roles:
+    - role: add-synology-sudo-user
+      become: true
+      vars:
+        username: "{{ server_admin_user_name }}"
+        password: "{{ server_admin_user_password }}"
+
+    # - name: Test
+    #   environment:
+    #     PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/asiri/scripts"
+    #   ansible.builtin.command: synology-manage-user.sh 'serveradmin' ''

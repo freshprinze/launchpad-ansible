@@ -1,0 +1,12 @@
+- name: Add Admin User
+  ansible.builtin.command: synology-manage-user.sh "{{ username }}" "{{ password }}"
+
+- name: Add User to sudoers
+  ansible.builtin.template:
+    src: ./templates/sudoers.j2
+    dest: "/etc/sudoers.d/{{ username }}"
+    owner: root
+    group: root
+    mode: "0600"
+  vars:
+    user_permissions: "{{ permissions | default({'allowed_commands': []}) }}"
