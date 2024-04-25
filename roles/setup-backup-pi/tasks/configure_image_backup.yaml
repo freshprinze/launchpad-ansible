@@ -11,19 +11,14 @@
   ansible.builtin.package:
     name:
       - rsync
-      - expect
+      - python3-pexpect
     state: present
 
 - name: Setup Image Backup
-  ansible.builtin.shell: |
-    image-backup
-
-    expect "OK to install gdisk (y/n)?"
-    send y
-
-    expect "Image file to create?"
-    send \x03
-
-    exit 0
-  args:
-    executable: /usr/bin/expect
+  ansible.builtin.expect:
+    command: image-backup
+    responses:
+      "Ok to install gdisk (y/n)?": "y"
+      "Image file to create?": "\x03"
+    timeout: 120
+  ignore_errors: True
