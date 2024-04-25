@@ -9,6 +9,9 @@
       vars:
         username: "{{ server_admin_user_name }}"
         password: "{{ server_admin_user_password }}"
+        assigned_groups:
+          - "administrators"
+          - "devops"
 
     # - name: Test
     #   environment:
