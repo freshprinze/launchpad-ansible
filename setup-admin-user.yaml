@@ -21,7 +21,7 @@
   roles:
     - role: update-authorized-key
       vars:
-        username: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
+        username: "{{ server_admin_user_name }}"
         keys:
           - id_ed25519_homelab_asiri-devops
   tags: mergekeys

@@ -3,8 +3,8 @@
 
 - name: Add to Groups
   ansible.builtin.command: synology-manage-group.sh "{{ username }}" "{{ item }}"
-  loop: "{{ assigned_groups }}"
-  when: assigned_groups is defined
+  loop: "{{ admin_groups }}"
+  when: admin_groups is defined
 
 - name: Add User to sudoers
   ansible.builtin.template:
