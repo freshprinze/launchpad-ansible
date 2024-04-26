@@ -8,8 +8,6 @@ all:
       ansible_host: 172.16.20.5
     iris:
       ansible_host: 172.16.20.8
-    rezerva:
-      ansible_host: 172.16.20.7
     capella-vm-100:
       ansible_host: 172.16.20.40
     capella-vm-101:
