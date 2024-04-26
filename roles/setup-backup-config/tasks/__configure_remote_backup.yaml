@@ -1,0 +1,31 @@
+- name: Create Local Mount
+  become: true
+  ansible.builtin.file:
+    path: "{{ local_backup_mount_point }}"
+    state: directory
+    group: "{{ server_admin_user_name }}"
+    owner: "{{ server_admin_user_name }}"
+    mode: "700"
+
+- name: Install Required Packages
+  ansible.builtin.package:
+    name:
+      - nfs-common
+    state: present
+
+- name: Update fstab
+  ansible.posix.mount:
+    src: "{{ remote_backup_path }}"
+    path: "{{ local_backup_mount_point }}"
+    fstype: nfs
+    opts: rw,sync,hard
+    boot: true
+    state: present
+
+- name: Mount volume
+  ansible.posix.mount:
+    src: "{{ remote_backup_path }}"
+    path: "{{ local_backup_mount_point }}"
+    fstype: nfs
+    opts: rw,sync,hard
+    state: mounted

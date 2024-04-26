@@ -4,3 +4,10 @@ mandatory_scripts:
 
 backup_scripts:
   - "../launchpad-scripts/general/backup-pi.sh"
+
+ha_user_allowed_commands:
+  - "/home/{{ server_admin_user_name }}/scripts/reboot.sh"
+  - "/home/{{ server_admin_user_name }}/scripts/shutdown.sh"
+
+devops_user_allowed_commands:
+  - "/home/{{ server_admin_user_name }}/scripts/backup-pi.sh"

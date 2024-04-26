@@ -2,7 +2,7 @@
   ansible.builtin.user:
     name: "{{ username }}"
     password: "{{ password | default(omit) }}"
-    shell: "{{ user_shell }}"
+    shell: /bin/bash
   become: true
 
 - name: Add user to sudoers

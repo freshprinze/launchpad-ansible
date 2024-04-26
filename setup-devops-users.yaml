@@ -1,4 +1,12 @@
-- name: Create Home Assistant Access User
+- name: Set Detected System
+  hosts: all
+  roles:
+    - role: set-detected-system
+  tags:
+    - haaccess
+    - devopsaccess
+
+- name: Setup Home Assistant Access User
   hosts: all
   gather_facts: false
   roles:
@@ -6,25 +14,22 @@
       become: true
       become_user: root
       vars:
-        username: '{{ ha_access_user_name }}'
-        user_shell: '/bin/bash'
+        username: "{{ ha_access_user_name }}"
         admin_groups:
           - devops
         permissions:
           become_user: "{{ server_admin_user_name }}"
-          allowed_commands:
-            - "/home/{{ server_admin_user_name }}/scripts/reboot.sh"
-            - "/home/{{ server_admin_user_name }}/scripts/shutdown.sh"
+          allowed_commands: "{{ ha_user_allowed_commands }}"
 
     - role: update-authorized-key
       become: true
       vars:
-        username: '{{ ha_access_user_name }}'
+        username: "{{ ha_access_user_name }}"
         keys:
           - id_ed25519_homelab_ha-access
   tags: haaccess
 
-- name: Create DevOps User
+- name: Setup DevOps User
   hosts: all
   gather_facts: false
   roles:
@@ -32,19 +37,17 @@
       become: true
       become_user: root
       vars:
-        username: '{{ devops_access_user_name }}'
-        user_shell: '/bin/bash'
+        username: "{{ devops_access_user_name }}"
         admin_groups:
           - devops
         permissions:
           become_user: "{{ server_admin_user_name }}"
-          allowed_commands:
-            - "/home/{{ server_admin_user_name }}/scripts/backup-pi.sh"
+          allowed_commands: "{{ devops_user_allowed_commands }}"
 
     - role: update-authorized-key
       become: true
       vars:
-        username: '{{ devops_access_user_name }}'
+        username: "{{ devops_access_user_name }}"
         keys:
           - id_ed25519_homelab_devops-access
   tags: devopsaccess

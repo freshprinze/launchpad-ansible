@@ -1,3 +1,17 @@
+- name: Set Detected System
+  hosts: pihole_nodes
+  roles:
+    - role: set-detected-system
+  tags:
+    - bootstrap
+    - backup
+    - scripts
+    - ha
+    - master
+    - slaves
+    - docker
+    - module
+
 - name: Bootstrap Device
   hosts: pihole_nodes
   become: true
@@ -10,8 +24,9 @@
     - role: manage-keepalived
       vars:
         keepalived_state: started
+  tags: bootstrap
 
-- name: Copy Mandatory Scripts
+- name: Setup Mandatory Scripts
   hosts: pihole_nodes
   roles:
     - role: copy-scripts
@@ -24,12 +39,12 @@
 - name: Prepare BackUp Config
   hosts: pihole_nodes
   roles:
-    - role: copy-scripts
-      vars:
-        scripts: "{{ backup_scripts }}"
-        remote_directory: "{{ remote_script_directory }}"
-        group_name: devops
-    - role: setup-backup-pi
+    # - role: copy-scripts
+    #   vars:
+    #     scripts: "{{ backup_scripts }}"
+    #     remote_directory: "{{ remote_script_directory }}"
+    #     group_name: devops
+    - role: setup-backup-config
       become: true
       vars:
         remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"

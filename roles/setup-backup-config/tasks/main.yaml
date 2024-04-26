@@ -1,0 +1,17 @@
+- name: Print
+  debug:
+    var: detected_system
+# - name: Configure Backup
+#   ansible.builtin.include_tasks: "setup_{{ detected_system }}_backup.yaml"
+# - name: Set Platform
+#   ansible.builtin.set_fact:
+#     system_vendor: "synology"
+#   when: ansible_system_vendor == 'Synology Inc.'
+
+# - name: Set Platform
+#   ansible.builtin.set_fact:
+#     system_vendor: "general"
+#   when: ansible_system_vendor != 'Synology Inc.'
+
+# - name: Configure Backup
+#   ansible.builtin.include_tasks: "setup_{{ system_vendor }}_backup.yaml"
