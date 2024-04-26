@@ -1,0 +1,5 @@
+- name: Install Prerequisites
+  hosts: all
+  roles:
+    - role: ansible-prerequisites
+  tags: init

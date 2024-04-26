@@ -1,8 +1,20 @@
+- name: Set Platform
+  ansible.builtin.set_fact:
+    system_vendor: "synology"
+  when: ansible_system_vendor == 'Synology Inc.'
+
+- name: Set Platform
+  ansible.builtin.set_fact:
+    system_vendor: "general"
+  when: ansible_system_vendor != 'Synology Inc.'
+
 - name: Add Admin User
-  ansible.builtin.include_tasks: add_user.yaml
+  ansible.builtin.include_tasks: "add_{{ system_vendor }}_user.yaml"
+# - name: Add Admin User
+#   ansible.builtin.include_tasks: add_user.yaml
 
-- name: Add User to sudoers
-  ansible.builtin.include_tasks: add_to_sudoers.yaml
+# - name: Add User to sudoers
+#   ansible.builtin.include_tasks: add_to_sudoers.yaml
 
-- name: Update User Groups
-  ansible.builtin.include_tasks: add_to_groups.yaml
+# - name: Update User Groups
+#   ansible.builtin.include_tasks: add_to_groups.yaml

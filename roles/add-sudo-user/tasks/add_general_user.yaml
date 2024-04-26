@@ -1,0 +1,31 @@
+- name: Create sudo user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    password: "{{ password | default(omit) }}"
+    shell: "{{ user_shell }}"
+  become: true
+
+- name: Add user to sudoers
+  ansible.builtin.template:
+    src: ./templates/sudoers.j2
+    dest: "/etc/sudoers.d/{{ username }}"
+    owner: root
+    group: root
+    mode: "0600"
+  vars:
+    user_permissions: "{{ permissions | default({'allowed_commands':[]}) }}"
+
+- name: Set User Groups
+  block:
+    - name: Create Group
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ admin_groups }}"
+
+    - name: Add to Group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: "{{ admin_groups }}"
+        append: true
+  when: admin_groups is defined

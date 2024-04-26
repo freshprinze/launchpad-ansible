@@ -15,6 +15,7 @@
           allowed_commands:
             - "/home/{{ server_admin_user_name }}/scripts/reboot.sh"
             - "/home/{{ server_admin_user_name }}/scripts/shutdown.sh"
+
     - role: update-authorized-key
       become: true
       vars:
@@ -39,6 +40,7 @@
           become_user: "{{ server_admin_user_name }}"
           allowed_commands:
             - "/home/{{ server_admin_user_name }}/scripts/backup-pi.sh"
+
     - role: update-authorized-key
       become: true
       vars:
