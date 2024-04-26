@@ -6,18 +6,6 @@
     - haaccess
     - devopsaccess
 
-- name: sssss
-  hosts: all
-  tasks: 
-    - name: one
-      debug:
-        var: ha_user_allowed_commands
-
-    - name: one
-      debug:
-        var: devops_user_allowed_commands
-  tags: print
-
 - name: Setup Home Assistant Access User
   hosts: all
   gather_facts: false
