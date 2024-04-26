@@ -46,17 +46,31 @@ Ansible script to setup pi iris
 1. Setup sudo access
 
    ```sh
-     ansible-playbook setup-sudo.yaml -l pi_iris --user=root -k
+   ansible-playbook setup-sudo.yaml -l pi_iris --user=root -k
    ```
 
 2. Bootstrap
 
    ```sh
-     ansible-playbook setup-pi-iris.yaml --tags=bootstrap --user=serveradmin
+   ansible-playbook setup-pi-iris.yaml --tags=bootstrap --user=serveradmin
    ```
 
 3. Setup Docker and Copy Modules
 
    ```sh
-     ansible-playbook setup-pi-iris.yaml --tags=docker,mods --user=serveradmin
+   ansible-playbook setup-pi-iris.yaml --tags=docker,mods --user=serveradmin
    ```
+
+## Setup Synology Nodes
+
+1. Setup sudo access
+
+   ```sh
+   ansible-playbook setup-admin-user.yaml \
+      -l nas-01-synology \
+      --user=asiri \
+      --ssh-common-args="-o PubkeyAuthentication=no -o PasswordAuthentication=yes -o PreferredAuthentications=password" \
+      -k
+   ```
+
+2. Bootstrap
