@@ -2,10 +2,6 @@
 ### --- node ip's ---
 all:
   hosts:
-    pathos:
-      ansible_host: 172.16.20.6
-    logos:
-      ansible_host: 172.16.20.11
     atlas:
       ansible_host: 172.16.20.2
     capella:
@@ -20,22 +16,6 @@ all:
       ansible_host: 172.16.20.41
     auriga-vm-102:
       ansible_host: 172.16.20.42
-    nas-01-synology:
-      ansible_host: 172.16.20.3
-
-### ----------- pihole nodes ------------
-pihole_nodes:
-  hosts:
-    pathos:
-    logos:
-
-pihole_master:
-  hosts:
-    pathos:
-
-pihole_slaves:
-  hosts:
-    logos:
 
 ### ----------- storage nodes --------------
 storage_nodes:

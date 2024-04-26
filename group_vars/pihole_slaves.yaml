@@ -1,6 +1,0 @@
-# pihole_gravity_sync_url: https://github.com/vmstan/gravity-sync/archive/refs/tags/v4.0.7.tar.gz
-# pihole_gravity_sync_remote_host: 172.16.20.6
-# pihole_gravity_sync_remote_user: serveradmin
-# pihole_data_directory: /home/serveradmin/pihole/etc-pihole
-# pihole_dnsmasq_directory: /home/serveradmin/pihole/etc-dnsmasq.d
-# pihole_docker_container_name: pihole
