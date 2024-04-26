@@ -14,5 +14,7 @@
 #     group: "{{ server_admin_user_name }}"
 #     mode: 0775
 
-- name: Start Backup
-  ansible.builtin.command: sudo /home/serveradmin/scripts/backup-pi.sh
+- name: Backup Device
+  ansible.builtin.include_tasks: "backup_{{ detected_system }}.yaml"
+# - name: Start Backup
+#   ansible.builtin.command: sudo /home/serveradmin/scripts/backup-pi.sh

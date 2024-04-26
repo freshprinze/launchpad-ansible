@@ -1,0 +1,12 @@
+- name: Set Detected System
+  hosts: all
+  roles:
+    - role: set-detected-system
+  tags:
+    - backup
+
+- name: Create Backup
+  hosts: all
+  roles:
+    - role: start-backup
+  tags: backup

@@ -5,18 +5,4 @@ timezone: "Asia/Colombo"
 ha_access_user_name: haaccess
 devops_access_user_name: devopsaccess
 
-remote_script_directory: "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts/"
-
-mandatory_scripts:
-  - "../launchpad-scripts/power/shutdown.sh"
-  - "../launchpad-scripts/power/reboot.sh"
-
-backup_scripts:
-  - "../launchpad-scripts/general/backup.sh"
-
-ha_user_allowed_commands:
-  - "/home/{{ server_admin_user_name }}/scripts/reboot.sh"
-  - "/home/{{ server_admin_user_name }}/scripts/shutdown.sh"
-
-devops_user_allowed_commands:
-  - "/home/{{ server_admin_user_name }}/scripts/backup.sh"
+remote_script_directory: "/home/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts"

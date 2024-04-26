@@ -1,5 +1,12 @@
-backup_scripts:
-  - "../launchpad-scripts/general/backup-synology.sh"
+mandatory_scripts:
+  - "../launchpad-scripts/power/shutdown.sh"
+  - "../launchpad-scripts/power/reboot.sh"
+
+backup_script: "../launchpad-scripts/general/backup-synology.sh"
+
+ha_user_allowed_commands:
+  - "{{ remote_script_directory }}/reboot.sh"
+  - "{{ remote_script_directory }}/shutdown.sh"
 
 devops_user_allowed_commands:
-  - "/home/{{ server_admin_user_name }}/scripts/backup-synology.sh"
+  - "{{ remote_script_directory }}/backup-synology.sh"

@@ -1,0 +1,12 @@
+mandatory_scripts:
+  - "../launchpad-scripts/power/shutdown.sh"
+  - "../launchpad-scripts/power/reboot.sh"
+
+backup_script: "../launchpad-scripts/general/backup.sh"
+
+ha_user_allowed_commands:
+  - "{{ remote_script_directory }}/reboot.sh"
+  - "{{ remote_script_directory }}/shutdown.sh"
+
+devops_user_allowed_commands:
+  - "{{ remote_script_directory }}/backup.sh"
