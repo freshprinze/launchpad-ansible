@@ -1,6 +1,0 @@
-mandatory_scripts:
-  - "../launchpad-scripts/power/shutdown.sh"
-  - "../launchpad-scripts/power/reboot.sh"
-
-backup_scripts:
-  - "../launchpad-scripts/general/backup.sh"

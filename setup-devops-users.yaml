@@ -6,12 +6,24 @@
     - haaccess
     - devopsaccess
 
+- name: sssss
+  hosts: all
+  tasks: 
+    - name: one
+      debug:
+        var: ha_user_allowed_commands
+
+    - name: one
+      debug:
+        var: devops_user_allowed_commands
+  tags: print
+
 - name: Setup Home Assistant Access User
   hosts: all
   gather_facts: false
+  become: true
   roles:
     - role: add-sudo-user
-      become: true
       become_user: root
       vars:
         username: "{{ ha_access_user_name }}"
@@ -22,7 +34,6 @@
           allowed_commands: "{{ ha_user_allowed_commands }}"
 
     - role: update-authorized-key
-      become: true
       vars:
         username: "{{ ha_access_user_name }}"
         keys:
@@ -32,9 +43,9 @@
 - name: Setup DevOps User
   hosts: all
   gather_facts: false
+  become: true
   roles:
     - role: add-sudo-user
-      become: true
       become_user: root
       vars:
         username: "{{ devops_access_user_name }}"
@@ -45,7 +56,6 @@
           allowed_commands: "{{ devops_user_allowed_commands }}"
 
     - role: update-authorized-key
-      become: true
       vars:
         username: "{{ devops_access_user_name }}"
         keys:
