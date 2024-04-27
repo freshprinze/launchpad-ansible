@@ -1,5 +1,0 @@
-- name: Configure Remote Backup Drive
-  ansible.builtin.include_tasks: configure_remote_backup.yaml
-
-- name: Setup and Configure Image Backup
-  ansible.builtin.include_tasks: configure_image_backup.yaml
