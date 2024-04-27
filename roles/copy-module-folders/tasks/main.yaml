@@ -1,9 +1,7 @@
 - name: Copy Folder
-  loop: "{{ modules | dict2items }}"
   ansible.builtin.copy:
     src: "{{ item.value }}"
     dest: "/home/{{ server_admin_user_name }}"
     owner: "{{ server_admin_user_name }}"
     group: "{{ server_admin_user_name }}"
-    # force: true
-  # become: true
+  loop: "{{ modules | dict2items }}"

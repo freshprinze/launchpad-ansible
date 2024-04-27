@@ -2,6 +2,7 @@
 server_admin_user_name: "{{ lookup('ansible.builtin.env', 'admin_user_name') }}"
 server_admin_user_password: "{{ lookup('ansible.builtin.env', 'admin_user_password') | password_hash('sha512') }}"
 timezone: "Asia/Colombo"
+
 ha_access_user_name: haaccess
 devops_access_user_name: devopsaccess
 

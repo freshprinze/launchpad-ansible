@@ -1,2 +1,6 @@
+- name: Test
+  debug:
+    msg: "XXXXXXXXXXXXXXX"
+
 - name: Start Backup
   ansible.builtin.command: "sudo {{ remote_script_directory }}/backup-pi.sh"
