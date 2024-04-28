@@ -1,4 +1,4 @@
-- name: Setup Restic
+- name: Install Restic
   block:
     - name: Download bz2 Package
       ansible.builtin.get_url:
@@ -10,3 +10,11 @@
 
     - name: Rename
       ansible.builtin.command: "mv {{ remote_script_directory }}/restic_0.16.4_linux_amd64 {{ remote_script_directory }}/restic"
+
+- name: Configure Restic
+  block:
+    - name: Copy Restic Environment File
+
+    - name: Copy Restic Password File
+
+    - name: Initialize

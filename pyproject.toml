@@ -12,6 +12,7 @@ passlib = "^1.7.4"
 
 [tool.poetry.group.dev.dependencies]
 ansible-lint = { version = "24.2.1", markers = 'platform_system != "Windows"' }
+pre-commit = "^3.7.0"
 
 [build-system]
 requires = ["poetry-core"]
