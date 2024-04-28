@@ -1,0 +1,9 @@
+- name: Setup Restic
+  block:
+    - name: Download bz2 Package
+      ansible.builtin.get_url:
+        url: https://github.com/restic/restic/releases/download/v0.16.4/restic_0.16.4_linux_amd64.bz2
+        dest: "{{ remote_script_directory }}/"
+
+    - name: Extract Package
+      ansible.builtin.command: "7z x {{ remote_script_directory }}/restic_0.16.4_linux_amd64.bz2 -o{{ remote_script_directory }}/"

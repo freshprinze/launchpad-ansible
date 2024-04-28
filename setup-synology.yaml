@@ -1,3 +1,11 @@
+- name: Set Detected System
+  hosts: synology_storage_nodes
+  roles:
+    - role: set-detected-system
+  tags:
+    - scripts
+    - backup
+
 - name: Setup Mandatory Scripts
   hosts: synology_storage_nodes
   roles:
@@ -18,9 +26,9 @@
         remote_directory: "{{ remote_script_directory }}/"
         group_name: devops
 
-    # - role: setup-backup-config
-    #   become: true
-    #   vars:
-    #     remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
-    #     local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
+    - role: setup-backup-config
+      become: true
+      vars:
+        remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
+        local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
   tags: backup
