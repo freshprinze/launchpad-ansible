@@ -65,12 +65,25 @@ Ansible script to setup pi iris
 
 1. Setup sudo access
 
-   ```sh
-   ansible-playbook setup-admin-user.yaml \
-      -l nas-01-synology \
-      --user=asiri \
-      --ssh-common-args="-o PubkeyAuthentication=no -o PasswordAuthentication=yes -o PreferredAuthentications=password" \
-      -k
-   ```
+   - Create ``serveradmin`` User
+
+      ```sh
+      ansible-playbook setup-admin-user.yaml \
+         -l nas-01-synology \
+         --user=asiri \
+         --ssh-common-args="-o PubkeyAuthentication=no -o PasswordAuthentication=yes -o PreferredAuthentications=password" \
+         -k
+      ```
+
+   - Create DevOps Users
+
+      ```sh
+      ansible-playbook setup-devops-users.yaml \
+         -l nas-01-synology \
+         --user=asiri \
+         --ssh-common-args="-o PubkeyAuthentication=no -o PasswordAuthentication=yes -o PreferredAuthentications=password" \
+         -k
+      ```
+
 
 2. Bootstrap

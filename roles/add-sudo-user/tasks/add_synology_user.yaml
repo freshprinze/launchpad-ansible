@@ -4,7 +4,7 @@
   become: true
   block:
     - name: Add User
-      ansible.builtin.command: synology-manage-user.sh "{{ username }}" "{{ password }}"
+      ansible.builtin.command: synology-manage-user.sh "{{ username }}" "{{ password | default('') }}"
       register: result
       changed_when: '"user already exists" not in result.stdout'
 
