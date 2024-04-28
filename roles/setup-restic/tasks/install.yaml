@@ -1,0 +1,28 @@
+- name: Install Requied Packages
+  ansible.builtin.apt:
+    name:
+      - bzip2
+      - pigz
+
+- name: Download Restic
+  ansible.builtin.get_url:
+    url: "https://github.com/restic/restic/releases/download/v{{ restic_version }}/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}.bz2"
+    dest: "/tmp/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}.bz2"
+    mode: "0644"
+
+- name: Extract Restic
+  ansible.builtin.command: "bzip2 -d /tmp/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}.bz2"
+  args:
+    creates: "/tmp/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+- name: Install Restic
+  ansible.builtin.copy:
+    remote_src: true
+    src: "/tmp/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+    dest: "{{ restic_path }}"
+    mode: "0755"
+
+- name: Remove Downloaded File
+  ansible.builtin.file:
+    path: "/tmp/restic_{{ restic_version }}_linux_{{ restic_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+    state: absent

@@ -1,6 +1,18 @@
+- name: Install Restic
+  when: restic_install is defined and restic_install == true
+  block:
+    - name: Check if restic is installed
+      ansible.builtin.stat:
+        path: "{{ restic_path }}"
+      register: restic_binary
+
+    - name: Include install.yml if restic is not installed or restic_install is true
+      ansible.builtin.include_tasks: install.yml
+      when: not restic_binary.stat.exists or restic_install
+
 - name: Create Restic Env File
   ansible.builtin.template:
-    src: restic_env.j2
+    src: ./templates/restic_env.j2
     dest: /etc/restic-env
     owner: "{{ server_admin_user_name }}"
     group: devops
