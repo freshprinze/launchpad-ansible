@@ -1,6 +1,8 @@
 ## !important: password is not hashed
 server_admin_user_password: "{{ lookup('ansible.builtin.env', 'admin_user_password') }}"
 
+remote_script_directory: "/var/services/homes/{{ lookup('ansible.builtin.env', 'admin_user_name') }}/scripts"
+
 mandatory_scripts:
   - "../launchpad-scripts/power/shutdown.sh"
   - "../launchpad-scripts/power/reboot.sh"

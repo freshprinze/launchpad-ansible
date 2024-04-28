@@ -65,6 +65,11 @@ Ansible script to setup pi iris
 
 1. Setup sudo access
 
+   > Root user is not allowed to login. As such the admin user is a separate user ie. asiri
+   > To keep it consistent across devices a ``serveradmin`` user is created. 
+   > In other devices ``serveradmin`` is used to create the devops users. But since the the user and group management scripts are inside the main admin users home directory this is will introduce complexity to the ansible scripts. 
+   > As such, devops users are also created using the main admin user ie. asiri
+
    - Create ``serveradmin`` User
 
       ```sh
