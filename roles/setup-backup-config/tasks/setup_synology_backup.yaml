@@ -7,3 +7,6 @@
 
     - name: Extract Package
       ansible.builtin.command: "7z x {{ remote_script_directory }}/restic_0.16.4_linux_amd64.bz2 -o{{ remote_script_directory }}/"
+
+    - name: Rename
+      ansible.builtin.command: "mv {{ remote_script_directory }}/restic_0.16.4_linux_amd64 {{ remote_script_directory }}/restic"
