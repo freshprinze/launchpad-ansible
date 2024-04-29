@@ -2,41 +2,40 @@
   hosts: iris
   become: true
   roles:
-    - role: bootstrap-pi
-    - role: apt-updates
+    - role: rpi_bootstrap
+    - role: apt_updates
   tags: bootstrap
 
 - name: Setup docker
   hosts: iris
   become: true
   roles:
-    - role: setup-docker
+    - role: setup_docker
   tags: bootstrap
 
 - name: Configure traefik
   hosts: iris
   roles:
-    - role: copy-module-folders
+    - role: copy_scripts
   vars:
-    modules:
-      traefik: '../launchpad-docker/traefik'
+    copy_scripts_modules:
+      - "../launchpad-docker/traefik"
   tags: traefik
 
 - name: Update Traefik Config
   hosts: iris
   roles:
-    - role: update-docker-compose-service
+    - role: docker_compose_service
       vars:
-        compose_path: '/home/{{ server_admin_user }}/traefik'
-        files:
+        docker_compose_service_path: "/home/{{ server_admin_user }}/traefik"
+        docker_compose_service_files:
           - src: ../launchpad-docker/traefik/data/config.yaml
-            dest: '/home/{{ server_admin_user }}/traefik/data/'
+            dest: "/home/{{ server_admin_user }}/traefik/data/"
   tags: traefik-update
-
 # - name: Copy module folders
 #   hosts: iris
 #   roles:
-#     - role: copy-module-folders
+#     - role: copy_module_folders
 #       vars:
 #         modules:
 #           portainer: '../docker/portainer'

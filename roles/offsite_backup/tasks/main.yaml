@@ -1,0 +1,10 @@
+- name: Copy Scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ copy_scripts_dest }}"
+    group: "{{ copy_scripts_group_name }}"
+    mode: "0750"
+  loop: "{{ copy_scripts_filelist }}"
+
+- name: Configure Backup
+  ansible.builtin.include_tasks: "setup_{{ detected_system }}_backup.yaml"

@@ -1,0 +1,14 @@
+portainer_nodes:
+  hosts:
+    iris:
+    capella-vm-100:
+    auriga-vm-102:
+
+portainer_master:
+  hosts:
+    iris:
+
+portainer_slaves:
+  hosts:
+    capella-vm-100:
+    auriga-vm-102:

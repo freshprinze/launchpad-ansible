@@ -1,0 +1,10 @@
+- name: Add Admin User
+  ansible.builtin.include_tasks: "add_{{ detected_system }}_user.yaml"
+
+- name: Update authorized_keys file
+  when: sudo_user_public_keys is defined
+  ansible.posix.authorized_key:
+    user: "{{ sudo_user_username }}"
+    key: "{{ lookup('template', './templates/authorized_keys.j2') }}"
+    state: present
+    exclusive: true

@@ -1,0 +1,43 @@
+- name: Set Detected System
+  hosts: all
+  roles:
+    - role: set_detected_system
+  tags:
+    - superuser
+    - haaccess
+
+- name: Setup Home Assistant Access User
+  hosts: all
+  gather_facts: false
+  become: true
+  roles:
+    - role: sudo_user
+      become_user: root
+      vars:
+        sudo_user_username: "{{ ha_access_user_name }}"
+        sudo_user_admin_groups:
+          - devops
+        sudo_user_permissions:
+          become_user: "{{ server_admin_user_name }}"
+          allowed_commands: "{{ ha_user_allowed_commands }}"
+        sudo_user_public_keys:
+          - id_ed25519_homelab_ha-access
+  tags: haaccess
+
+- name: Setup DevOps User
+  hosts: all
+  gather_facts: false
+  become: true
+  roles:
+    - role: sudo_user
+      become_user: root
+      vars:
+        sudo_user_username: "{{ devops_access_user_name }}"
+        sudo_user_admin_groups:
+          - devops
+        sudo_user_permissions:
+          become_user: "{{ server_admin_user_name }}"
+          allowed_commands: "{{ devops_user_allowed_commands }}"
+        sudo_user_public_keys:
+          - id_ed25519_homelab_devops-access
+  tags: devopsaccess

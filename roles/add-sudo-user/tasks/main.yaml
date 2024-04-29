@@ -1,2 +1,0 @@
-- name: Add Admin User
-  ansible.builtin.include_tasks: "add_{{ detected_system }}_user.yaml"

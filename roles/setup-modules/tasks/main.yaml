@@ -1,4 +1,0 @@
-- name: Setup Traefix
-  community.docker.docker_compose_v2:
-    project_src: traefik
-    state: present

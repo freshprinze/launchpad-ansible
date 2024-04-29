@@ -2,21 +2,21 @@
   hosts: capella-vm-101-semaphore
   become: true
   roles:
-    - role: apt-updates
+    - role: apt_updates
   tags: bootstrap
 
 - name: Setup docker
   hosts: capella-vm-101-semaphore
   become: true
   roles:
-    - role: setup-docker
+    - role: setup_docker
   tags: bootstrap
 
 - name: Copy module folders
   hosts: capella-vm-101-semaphore
   roles:
-    - role: copy-module-folders
+    - role: copy_scripts
   vars:
-    modules:
-      semaphore: '../launchpad-docker/semaphore'
+    copy_scripts_modules:
+      - "../launchpad-docker/semaphore"
   tags: mods

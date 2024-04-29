@@ -1,0 +1,60 @@
+- name: Configure Backup Drive
+  block:
+    - name: Create Local Mount
+      become: true
+      ansible.builtin.file:
+        path: "{{ local_backup_mount_point }}"
+        state: directory
+        group: "{{ server_admin_user_name }}"
+        owner: "{{ server_admin_user_name }}"
+        mode: "700"
+
+    - name: Install Required Packages
+      ansible.builtin.package:
+        name:
+          - nfs-common
+        state: present
+
+    - name: Update fstab
+      ansible.posix.mount:
+        src: "{{ config_remote_path }}"
+        path: "{{ config_local_mount_point }}"
+        fstype: nfs
+        opts: rw,sync,hard
+        boot: true
+        state: present
+
+    - name: Mount volume
+      ansible.posix.mount:
+        src: "{{ config_remote_path }}"
+        path: "{{ config_local_mount_point }}"
+        fstype: nfs
+        opts: rw,sync,hard
+        state: mounted
+
+- name: Configure Image Backup
+  block:
+    - name: Download and Unzip Pi Image Tools
+      ansible.builtin.unarchive:
+        src: https://files.networkprofile.org/s/ZebFWQKqra7LgJr/download/image-files.zip
+        dest: /usr/local/bin
+        group: "{{ server_admin_user_name }}"
+        owner: "{{ server_admin_user_name }}"
+        mode: "700"
+        remote_src: true
+
+    - name: Install Required Packages
+      ansible.builtin.package:
+        name:
+          - rsync
+          - python3-pexpect
+        state: present
+
+    - name: Setup Image Backup
+      ansible.builtin.expect:
+        command: image-backup
+        responses:
+          "Ok to install gdisk (y/n)?": "y"
+          "Image file to create?": "\x03"
+        timeout: 120
+      ignore_errors: true

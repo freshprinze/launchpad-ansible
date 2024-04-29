@@ -1,0 +1,8 @@
+- name: Manage system service
+  ansible.builtin.service:
+    name: "{{ system_service_name }}"
+    state: "{{ system_service_state }}"
+  register: result
+  failed_when:
+    - result.failed == true
+    - '"Could not find the requested service" not in result.msg'

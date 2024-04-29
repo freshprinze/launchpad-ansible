@@ -1,0 +1,17 @@
+- name: Copy Folder
+  when: copy_scripts_modules is defined
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/{{ server_admin_user_name }}"
+    owner: "{{ server_admin_user_name }}"
+    group: "{{ server_admin_user_name }}"
+  loop: "{{ copy_scripts_modules }}"
+
+- name: Copy Script
+  when: copy_scripts_filelist is defined
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ copy_scripts_dest }}"
+    group: "{{ copy_scripts_group_name }}"
+    mode: "0750"
+  loop: "{{ copy_scripts_filelist }}"

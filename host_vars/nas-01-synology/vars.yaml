@@ -1,0 +1,4 @@
+restic_aws_access_key_id: "{{ lookup('ansible.builtin.env', 'nas_01_restic_aws_access_key_id') }}"
+restic_aws_secret_access_key: "{{ lookup('ansible.builtin.env', 'nas_01_restic_aws_secret_access_key') }}"
+restic_repository: "{{ lookup('ansible.builtin.env', 'nas_01_restic_repository') }}"
+restic_password: "{{ lookup('ansible.builtin.env', 'nas_01_restic_password') }}"

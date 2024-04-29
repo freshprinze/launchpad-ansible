@@ -1,0 +1,10 @@
+- name: Install Restic
+  ansible.builtin.include_tasks: "install_{{ detected_system }}.yaml"
+
+- name: Create Restic Env File
+  ansible.builtin.template:
+    src: ./templates/restic-env.j2
+    dest: /etc/restic-env
+    owner: "{{ server_admin_user_name }}"
+    group: devops
+    mode: "0700"

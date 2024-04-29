@@ -32,15 +32,3 @@ proxmox_vms:
   hosts:
     capella-vm-100:
     capella-vm-101:
-
-### ----------- portainer nodes -------------
-portainer_nodes:
-  hosts:
-    iris:
-    capella-vm-100:
-    auriga-vm-102:
-
-portainer_slaves:
-  hosts:
-    capella-vm-100:
-    auriga-vm-102:

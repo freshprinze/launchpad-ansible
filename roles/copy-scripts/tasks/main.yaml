@@ -1,7 +1,0 @@
-- name: Copy Scripts
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ remote_directory }}"
-    group: "{{ group_name }}"
-    mode: "0750"
-  loop: "{{ scripts }}"

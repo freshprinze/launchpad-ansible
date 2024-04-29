@@ -1,7 +1,7 @@
 - name: Set Detected System
   hosts: synology_storage_nodes
   roles:
-    - role: set-detected-system
+    - role: set_detected_system
   tags:
     - scripts
     - backup
@@ -9,26 +9,23 @@
 - name: Setup Mandatory Scripts
   hosts: synology_storage_nodes
   roles:
-    - role: copy-scripts
+    - role: copy_scripts
       vars:
-        scripts: "{{ mandatory_scripts }}"
-        remote_directory: "{{ remote_script_directory }}/"
-        group_name: devops
+        copy_scripts_list: "{{ mandatory_scripts }}"
+        copy_scripts_path: "{{ remote_script_directory }}/"
+        copy_scripts_group_name: devops
   tags: scripts
 
 - name: Prepare BackUp Config
   hosts: synology_storage_nodes
   roles:
-    - role: copy-scripts
+    - role: copy_scripts
       vars:
-        scripts:
+        copy_scripts_list:
           - "{{ backup_script }}"
-        remote_directory: "{{ remote_script_directory }}/"
-        group_name: devops
+        copy_scripts_path: "{{ remote_script_directory }}/"
+        copy_scripts_group_name: devops
 
-    - role: setup-backup-config
+    - role: offsite_backup
       become: true
-      vars:
-        remote_backup_path: "{{ lookup('ansible.builtin.env', 'remote_backup_path') }}"
-        local_backup_mount_point: "{{ lookup('ansible.builtin.env', 'local_backup_mount_point') }}"
   tags: backup

@@ -1,2 +1,0 @@
-- name: Configure Backup
-  ansible.builtin.include_tasks: "setup_{{ detected_system }}_backup.yaml"

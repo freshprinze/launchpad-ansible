@@ -2,7 +2,10 @@ mandatory_scripts:
   - "../launchpad-scripts/power/shutdown.sh"
   - "../launchpad-scripts/power/reboot.sh"
 
+# backup
 backup_script: "../launchpad-scripts/general/backup-pi.sh"
+backup_local_mount_point: "{{ lookup('ansible.builtin.env', 'pihole_local_backup_mount_point') }}"
+backup_remote_path: "{{ lookup('ansible.builtin.env', 'pihole_remote_backup_path') }}"
 
 ha_user_allowed_commands:
   - "{{ remote_script_directory }}/reboot.sh"

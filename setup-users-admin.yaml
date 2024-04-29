@@ -1,0 +1,19 @@
+- name: Set Detected System
+  hosts: all
+  roles:
+    - role: set_detected_system
+  tags:
+    - superuser
+
+- name: Create Server Admin User
+  hosts: all
+  roles:
+    - role: sudo_user
+      vars:
+        sudo_user_username: "{{ server_admin_user_name }}"
+        sudo_user_password: "{{ server_admin_user_password }}"
+        sudo_user_public_keys:
+          - id_ed25519_homelab_asiri-devops
+        sudo_user_admin_groups:
+          - devops
+  tags: superuser

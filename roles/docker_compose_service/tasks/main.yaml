@@ -1,0 +1,22 @@
+- name: Get Container Information
+  community.docker.docker_container_info:
+    name: "{{ docker_compose_service_container_name }}"
+  register: container_info
+
+- name: Stop Service
+  when: container_info.exists
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_service_path }}"
+    state: stopped
+
+- name: Copy Files
+  ansible.builtin.copy:
+    src: "{{ docker_compose_service_src }}"
+    dest: "{{ docker_compose_service_dest }}"
+    owner: "{{ docker_compose_service_owner }}"
+    group: "{{ docker_compose_service_group }}"
+
+- name: Start Container
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_service_path }}"
+    state: present

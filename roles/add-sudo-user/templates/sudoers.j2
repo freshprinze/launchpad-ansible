@@ -1,5 +1,0 @@
-{% for command in user_permissions.allowed_commands if user_permissions is defined and user_permissions.allowed_commands|length > 0 %}
-{{ username }} ALL=(ALL) NOPASSWD: {{ command }}
-{% else %}
-{{ username }} ALL=(ALL) NOPASSWD:ALL
-{% endfor %}

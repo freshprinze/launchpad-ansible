@@ -1,0 +1,3 @@
+{% for filename in sudo_user_public_keys %}
+{{ lookup('ansible.builtin.file', lookup('env','HOME') ~ '/.ssh/' ~ filename ~ '.pub') }}
+{% endfor %}
