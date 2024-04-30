@@ -2,11 +2,20 @@
 
 ## Table of Contents
 
-1. [Setup Users](#setup-users)
-2. [Setup PiHole Nodes](#setup-pihole-nodes)
-3. [Setup Pi Iris](#setup-pi-iris)
+1. [Setup PiHole Nodes](#setup-pihole-nodes)
+2. [Setup Pi Iris](#setup-pi-iris)
+3. [Setup Synology](#setup-synology-nodes)
 
-## Setup Users
+## Setup PiHole nodes
+
+Pihole nodes will be setup with the following features.
+
+- High Availability
+- Allows access from Home Assistant for power management tasks
+- `orbital-sync` inside pi-iris handles synchronization of `gravity` database
+
+> if needed specify become user password using -K
+
 
 1. Setup Admin User
 
@@ -20,18 +29,7 @@
     ansible-playbook setup-users-devops.yaml -l <nodes> --user=<admin-user> -K
    ```
 
-## Setup PiHole nodes
-
-Pihole nodes will be setup with the following features.
-
-- High Availability
-- Allows access from Home Assistant for power management tasks
-- `orbital-sync` inside pi-iris handles synchronization of `gravity` database
-
-> if needed specify become user password using -K
-
-
-1. Setup pihole
+3. Setup pihole
 
    ```sh
     ansible-playbook setup-pi-hole.yaml --user=<admin-user>
