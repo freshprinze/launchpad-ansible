@@ -32,7 +32,7 @@
     group: root
     mode: "0600"
   vars:
-    user_permissions: "{{ psudo_user_permissions | default({'allowed_commands': []}) }}"
+    user_permissions: "{{ sudo_user_permissions | default({'allowed_commands': []}) }}"
 
 - name: Update Permissions to Allow Passworld-less Access
   become: true

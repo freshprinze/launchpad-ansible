@@ -3,6 +3,7 @@
 
 - name: Update authorized_keys file
   when: sudo_user_public_keys is defined
+  become: true
   ansible.posix.authorized_key:
     user: "{{ sudo_user_username }}"
     key: "{{ lookup('template', './templates/authorized_keys.j2') }}"
