@@ -24,6 +24,8 @@
         copy_scripts_filelist:
           - "{{ backup_script }}"
           - "{{ backup_init_script }}"
+          - "{{ include_file_list }}"
+          - "{{ exclude_file_list }}"
         copy_scripts_dest: "{{ remote_script_directory }}/"
         copy_scripts_group_name: devops
 
