@@ -8,3 +8,5 @@
   ansible.builtin.command: init-restic-repository.sh
   args:
     creates: "{{ remote_script_directory }}/restic-repo-inited"
+  register: result
+  changed_when: '"successfully initialized" is in result.stdout'
