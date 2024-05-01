@@ -17,3 +17,4 @@ mandatory_scripts:
   - "../launchpad-scripts/power/reboot.sh"
 
 backup_script: "../launchpad-scripts/backup/synology/backup.sh"
+backup_init_script: "../launchpad-scripts/backup/synology/init-restic-repository.sh"

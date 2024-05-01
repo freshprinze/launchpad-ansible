@@ -1,3 +1,8 @@
 - name: Install and Setup Restic
   ansible.builtin.include_role:
     name: setup_restic
+
+- name: Initialize Repository
+  ansible.builtin.command: "{{ remote_script_directory }}/init-restic-repository.sh"
+  args:
+    creates: "{{ remote_script_directory }}/restic-repo-inited"
