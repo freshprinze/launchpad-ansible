@@ -1,4 +1,4 @@
 - name: Start Backup
   environment:
-    PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/serveradmin/scripts"
+    PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin:/var/services/homes/{{ server_admin_user_name }}/scripts"
   ansible.builtin.command: "sudo {{ remote_script_directory }}/backup.sh"
