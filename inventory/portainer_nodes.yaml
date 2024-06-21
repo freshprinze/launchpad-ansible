@@ -3,6 +3,7 @@ portainer_nodes:
     iris:
     capella-vm-100:
     auriga-vm-102:
+    auriga-vm-103:
 
 portainer_master:
   hosts:
@@ -12,3 +13,4 @@ portainer_slaves:
   hosts:
     capella-vm-100:
     auriga-vm-102:
+    auriga-vm-103:

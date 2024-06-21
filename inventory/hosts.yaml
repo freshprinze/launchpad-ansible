@@ -14,6 +14,8 @@ all:
       ansible_host: 172.16.20.41
     auriga-vm-102:
       ansible_host: 172.16.20.42
+    auriga-vm-103:
+      ansible_host: 172.16.20.43
 
 ### ----------- storage nodes --------------
 storage_nodes:
@@ -32,3 +34,5 @@ proxmox_vms:
   hosts:
     capella-vm-100:
     capella-vm-101:
+    auriga-vm-102:
+    auriga-vm-103:
