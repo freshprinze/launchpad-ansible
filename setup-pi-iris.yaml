@@ -19,7 +19,7 @@
     - role: copy_scripts
   vars:
     copy_scripts_modules:
-      - "../launchpad-docker/traefik"
+      - "../launchpad-docker/traefik_v3"
   tags: traefik
 
 - name: Update Traefik Config
@@ -28,22 +28,20 @@
     - role: docker_compose_service
       vars:
         docker_compose_service_container_name: "traefik"
-        docker_compose_service_path: "/home/{{ server_admin_user_name }}/traefik"
+        docker_compose_service_path: "/home/{{ server_admin_user_name }}/traefik_v3"
         docker_compose_service_src: '../launchpad-docker/traefik/data/config.yaml'
-        docker_compose_service_dest: "/home/{{ server_admin_user_name }}/traefik/data/"
+        docker_compose_service_dest: "/home/{{ server_admin_user_name }}/traefik_v3/data/"
         docker_compose_service_owner: "{{ server_admin_user_name }}"
         docker_compose_service_group: "{{ server_admin_user_name }}"
   tags: traefik-update
-# - name: Copy module folders
-#   hosts: iris
-#   roles:
-#     - role: copy_module_folders
-#       vars:
-#         modules:
-#           portainer: '../docker/portainer'
-#           dashy: '../docker/dashy'
-#           'uptime-kuma': '../docker/uptime-kuma'
-#           webnut: '../docker/webnut'
-#           upsnap: '../docker/upsnap'
-#           'orbital-sync': '../docker/orbital-sync'
-#   tags: mods
+
+- name: Copy Manifests
+  hosts: iris
+  roles:
+    - role: copy_scripts
+      vars:
+        copy_scripts_dest: '/home/{{ server_admin_user_name }}/'
+        copy_scripts_group_name: "{{ server_admin_user_name }}"
+        copy_scripts_filelist:
+          - '../launchpad-docker/homepage'
+  tags: mods
