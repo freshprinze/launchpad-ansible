@@ -29,7 +29,7 @@
       vars:
         docker_compose_service_container_name: "traefik"
         docker_compose_service_path: "/home/{{ server_admin_user_name }}/traefik_v3"
-        docker_compose_service_src: '../launchpad-docker/traefik/data/config.yaml'
+        docker_compose_service_src: '../launchpad-docker/traefik_v3/data/config.yaml'
         docker_compose_service_dest: "/home/{{ server_admin_user_name }}/traefik_v3/data/"
         docker_compose_service_owner: "{{ server_admin_user_name }}"
         docker_compose_service_group: "{{ server_admin_user_name }}"
