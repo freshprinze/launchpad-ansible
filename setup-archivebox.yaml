@@ -1,0 +1,28 @@
+- name: Install Prerequisites
+  hosts: archive_box
+  roles:
+    - role: ansible_prerequisites
+  tags: init
+
+- name: Update Packages
+  hosts: archive_box
+  roles:
+    - role: apt_updates
+  tags: bootstrap
+
+- name: Setup docker
+  hosts: archive_box
+  roles:
+    - role: setup_docker
+  tags: bootstrap
+
+- name: Copy Manifests
+  hosts: archive_box
+  roles:
+    - role: copy_scripts
+      vars:
+        copy_scripts_dest: '/home/{{ server_admin_user_name }}/'
+        copy_scripts_group_name: "{{ server_admin_user_name }}"
+        copy_scripts_filelist:
+          - '../launchpad-docker/archivebox'
+  tags: mod
