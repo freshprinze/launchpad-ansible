@@ -8,6 +8,7 @@
   hosts: archive_box
   roles:
     - role: apt_updates
+    - role: common_packages
   tags: bootstrap
 
 - name: Setup docker

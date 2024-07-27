@@ -1,0 +1,8 @@
+- name: Install Packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - nfs-common
+      - nano
+    state: latest
+    update_cache: true
