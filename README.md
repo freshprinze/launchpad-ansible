@@ -5,6 +5,7 @@
 1. [Setup PiHole Nodes](#setup-pihole-nodes)
 2. [Setup Pi Iris](#setup-pi-iris)
 3. [Setup Synology](#setup-synology-nodes)
+4. [Setup Tools](#setup-tools)
 
 ## Setup PiHole nodes
 
@@ -90,3 +91,10 @@ Ansible script to setup pi iris
 
 
 2. Bootstrap
+
+## Setup Tools
+
+   ```sh
+   ansible-playbook setup-archivebox.yaml  --user=serveradmin -K
+   ansible-playbook setup-snipeit.yaml  --user=serveradmin -K
+   ```

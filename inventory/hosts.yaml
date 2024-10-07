@@ -16,8 +16,10 @@ all:
       ansible_host: 172.16.20.42
     auriga-vm-103:
       ansible_host: 172.16.20.43
-    capella-vm-104:
+    archivebox-ct:
       ansible_host: 172.16.20.45
+    snipeit-ct:
+      ansible_host: 172.16.20.48
 
 ### ----------- storage nodes --------------
 storage_nodes:
@@ -42,4 +44,9 @@ proxmox_vms:
 ### ----------- archivebox ----------------
 archive_box:
   hosts:
-    capella-vm-104:
+    archivebox-ct:
+
+### ----------- archivebox ----------------
+snipeit_box:
+  hosts:
+    snipeit-ct:
