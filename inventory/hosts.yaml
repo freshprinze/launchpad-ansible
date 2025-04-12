@@ -20,6 +20,8 @@ all:
       ansible_host: 172.16.20.45
     snipeit-ct:
       ansible_host: 172.16.20.48
+    hoader-ct:
+      ansible_host: 172.16.20.52
 
 ### ----------- storage nodes --------------
 storage_nodes:
@@ -50,3 +52,8 @@ archive_box:
 snipeit_box:
   hosts:
     snipeit-ct:
+
+### --------------- hoader ----------------
+hoader_box:
+  hosts:
+    hoader-ct:

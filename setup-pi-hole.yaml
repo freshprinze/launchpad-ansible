@@ -33,8 +33,8 @@
   roles:
     - role: copy_scripts
       vars:
-        copy_scripts_filelist: "{{ mandatory_scripts }}"
-        copy_scripts_dest: "{{ remote_script_directory }}/"
+        copy_scripts_filelist: '{{ mandatory_scripts }}'
+        copy_scripts_dest: '{{ remote_script_directory }}/'
         copy_scripts_group_name: devops
   tags: scripts
 
@@ -44,15 +44,15 @@
     - role: copy_scripts
       vars:
         copy_scripts_filelist:
-          - "{{ backup_script }}"
-        copy_scripts_dest: "{{ remote_script_directory }}/"
+          - '{{ backup_script }}'
+        copy_scripts_dest: '{{ remote_script_directory }}/'
         copy_scripts_group_name: devops
 
     - role: onsite_backup
       become: true
       vars:
-        onsite_backup_backup_path: "{{ backup_remote_path }}"
-        onsite_backup_mount_point: "{{ backup_local_mount_point }}"
+        onsite_backup_backup_path: '{{ backup_remote_path }}'
+        onsite_backup_mount_point: '{{ backup_local_mount_point }}'
   tags: backup
 
 - name: Setup docker
@@ -70,15 +70,38 @@
         system_service_state: started
   tags: docker
 
-- name: Start PiHole Container
+- name: Manage PiHole Container
   hosts: pihole_nodes
-  roles:
-    - role: docker_compose_service
+  tasks:
+    - name: Stop Container
+      include_role:
+        name: docker_compose_service
       vars:
-        docker_compose_service_src: "../launchpad-docker/pihole"
-        docker_compose_service_dest: "/home/{{ server_admin_user_name }}/pihole"
-        docker_compose_service_owner: "{{ server_admin_user_name }}"
-        docker_compose_service_group: "{{ server_admin_user_name }}"
+        docker_compose_service_container_name: 'pihole'
+        docker_compose_service_path: '/home/{{ server_admin_user_name }}/pihole'
+        docker_compose_service_status: stopped
+
+    - name: Copy Files
+      ansible.builtin.copy:
+        src: '../launchpad-docker/pihole'
+        dest: '/home/{{ server_admin_user_name }}/'
+        owner: '{{ server_admin_user_name }}'
+        group: '{{ server_admin_user_name }}'
+
+    - name: Replace 'fqdn' with hostname in .env file
+      ansible.builtin.lineinfile:
+        path: '/home/{{ server_admin_user_name }}/pihole/.env'
+        regexp: '^PIHOLE_WEBSERVER_DOMAIN=fqdn$'
+        line: 'PIHOLE_WEBSERVER_DOMAIN={{ ansible_hostname }}.local.theinquisitive.me'
+        state: present
+
+    - name: Start Container
+      include_role:
+        name: docker_compose_service
+      vars:
+        docker_compose_service_container_name: 'pihole'
+        docker_compose_service_path: '/home/{{ server_admin_user_name }}/pihole'
+        docker_compose_service_status: present
   tags: pihole
 
 - name: Setup HA Master
