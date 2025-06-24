@@ -8,19 +8,17 @@ all:
       ansible_host: 172.16.20.5
     iris:
       ansible_host: 172.16.20.8
-    capella-vm-100:
-      ansible_host: 172.16.20.40
-    capella-vm-101:
-      ansible_host: 172.16.20.41
-    auriga-vm-102:
-      ansible_host: 172.16.20.42
-    auriga-vm-103:
-      ansible_host: 172.16.20.43
-    archivebox-ct:
+    pavo-vm-100-media-server:
+      ansible_host: 172.16.20.51
+    pavo-vm-101-archiver:
+      ansible_host: 172.16.20.52
+    pavo-ct-101-archivebox:
       ansible_host: 172.16.20.45
-    snipeit-ct:
+    pavo-ct-102-snipeit:
       ansible_host: 172.16.20.48
-    hoader-ct:
+    pavo-ct-103-hoader:
+      ansible_host: 172.16.20.52
+    pavo-ct-104-netbox:
       ansible_host: 172.16.20.52
 
 ### ----------- storage nodes --------------

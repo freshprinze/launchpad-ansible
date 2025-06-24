@@ -1,9 +1,8 @@
 portainer_nodes:
   hosts:
     iris:
-    capella-vm-100:
-    auriga-vm-102:
-    auriga-vm-103:
+    pavo-vm-100-media-server:
+    pavo-vm-101-archiver:
 
 portainer_master:
   hosts:
@@ -11,6 +10,5 @@ portainer_master:
 
 portainer_slaves:
   hosts:
-    capella-vm-100:
-    auriga-vm-102:
-    auriga-vm-103:
+    pavo-vm-100-media-server:
+    pavo-vm-101-archiver:

@@ -1,7 +1,15 @@
-- name: Update Packages
+- name: Install Packages
   hosts: portainer_nodes
   roles:
     - role: apt_updates
+      become: true
+    - role: install_packages
+      become: true
+      vars:
+        install_packages_custom_packages:
+          - python3-requests
+          - autofs
+          - nano
   tags: bootstrap
 
 - name: Setup docker
@@ -16,10 +24,10 @@
     - role: copy_scripts
       vars:
         copy_scripts_modules:
-          - "../launchpad-docker/portainer"
+          - '../launchpad-docker/portainer'
     - role: docker_compose_service
       vars:
-        docker_compose_service_path: "/home/{{ server_admin_user }}/portainer"
+        docker_compose_service_path: '/home/{{ server_admin_user }}/portainer'
   tags: primary
 
 - name: Copy Portainer Agents to Slaves
@@ -28,28 +36,9 @@
     - role: copy_scripts
       vars:
         copy_scripts_modules:
-          - "../launchpad-docker/portainer-agent"
+          - '../launchpad-docker/portainer-agent'
     - role: docker_compose_service
       vars:
-        docker_compose_service_path: "/home/{{ server_admin_user }}/portainer-agent"
+        docker_compose_service_container_name: 'portainer-agent'
+        docker_compose_service_path: '/home/{{ server_admin_user }}/portainer-agent'
   tags: slaves
-# - name: Copy Modules to Portainer Slave-1
-#   hosts: capella-vm-100
-#   roles:
-#     - role: copy_module_folders
-#       vars:
-#         modules:
-#           netbox: '../docker/netbox'
-#           netboot: '../docker/netboot'
-#           paperless: '../docker/paperless'
-#           syncthing: '../docker/syncthing'
-#   tags: slave-1
-# - name: Copy Modules to Portainer Slave-2
-#   hosts: capella-vm-100
-#   roles:
-#     - role: copy_module_folders
-#       vars:
-#         modules:
-#           # 'media-downloader': '../docker/media-downloader'
-#           # syncthing: '../docker/syncthing'
-#   tags: slave-2

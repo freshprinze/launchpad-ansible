@@ -1,0 +1,16 @@
+- name: Print Distribution
+  ansible.builtin.debug:
+    msg: 'Distribution {{ ansible_distribution }} | OS Family {{ ansible_os_family }}'
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: '{{ install_packages_apt_cache_valid_time }}'
+  when: install_packages_update_apt_cache | bool
+
+- name: Install custom packages
+  apt:
+    name: '{{ install_packages_custom_packages }}'
+    state: present
+    install_recommends: '{{ install_packages_install_recommends }}'
+  when: install_packages_custom_packages is defined and install_packages_custom_packages | length > 0
