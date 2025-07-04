@@ -12,13 +12,11 @@ all:
       ansible_host: 172.16.20.51
     pavo-vm-101-archiver:
       ansible_host: 172.16.20.52
-    pavo-ct-101-archivebox:
-      ansible_host: 172.16.20.45
+    pavo-ct-102-finance:
+      ansible_host: 172.16.20.54
     pavo-ct-102-snipeit:
       ansible_host: 172.16.20.48
     pavo-ct-103-hoader:
-      ansible_host: 172.16.20.52
-    pavo-ct-104-netbox:
       ansible_host: 172.16.20.52
 
 ### ----------- storage nodes --------------

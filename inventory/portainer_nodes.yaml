@@ -3,6 +3,7 @@ portainer_nodes:
     iris:
     pavo-vm-100-media-server:
     pavo-vm-101-archiver:
+    pavo-ct-102-finance:
 
 portainer_master:
   hosts:
@@ -12,3 +13,4 @@ portainer_slaves:
   hosts:
     pavo-vm-100-media-server:
     pavo-vm-101-archiver:
+    pavo-ct-102-finance:
