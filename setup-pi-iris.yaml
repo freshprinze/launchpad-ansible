@@ -1,3 +1,4 @@
+#### ------------------------ Setup Pi Iris ---------------------- ####
 - name: Bootstrap Pi
   hosts: iris
   become: true
@@ -13,14 +14,15 @@
     - role: setup_docker
   tags: bootstrap
 
-- name: Configure traefik
+#### ------------------------ Configure Traefik ---------------------- ####
+- name: Setup traefik
   hosts: iris
   roles:
     - role: copy_scripts
   vars:
     copy_scripts_modules:
-      - '../launchpad-docker/traefik_v3'
-  tags: traefik
+      - '../launchpad-docker/traefik'
+  tags: traefik-setup
 
 - name: Update Traefik Config
   hosts: iris
@@ -30,13 +32,13 @@
         name: docker_compose_service
       vars:
         docker_compose_service_container_name: 'traefik'
-        docker_compose_service_path: '/home/{{ server_admin_user_name }}/traefik_v3'
+        docker_compose_service_path: '/home/{{ server_admin_user_name }}/traefik'
         docker_compose_service_status: stopped
 
     - name: Copy Files
       ansible.builtin.copy:
-        src: '../launchpad-docker/traefik_v3/data/config.yaml'
-        dest: '/home/{{ server_admin_user_name }}/traefik_v3/data/'
+        src: '../launchpad-docker/traefik/config/'
+        dest: '/home/{{ server_admin_user_name }}/traefik/config/'
         owner: '{{ server_admin_user_name }}'
         group: '{{ server_admin_user_name }}'
 
@@ -45,10 +47,11 @@
         name: docker_compose_service
       vars:
         docker_compose_service_container_name: 'traefik'
-        docker_compose_service_path: '/home/{{ server_admin_user_name }}/traefik_v3'
+        docker_compose_service_path: '/home/{{ server_admin_user_name }}/traefik'
         docker_compose_service_status: present
   tags: traefik-update
 
+#### ------------------------ Setup Homepage ---------------------- ####
 - name: Copy Manifests
   hosts: iris
   roles:
@@ -58,4 +61,4 @@
         copy_scripts_group_name: '{{ server_admin_user_name }}'
         copy_scripts_filelist:
           - '../launchpad-docker/homepage'
-  tags: mods
+  tags: homepage-update
